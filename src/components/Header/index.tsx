@@ -1,4 +1,3 @@
-import { useState } from "react";
 import logoImg from "../../assets/logo.svg";
 import { Container, Content } from "./styles";
 
@@ -11,8 +10,11 @@ export const Header = ({ onOpenNewTransactionModal }: HeaderProps) => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="My Finances" />
-        <button onClick={onOpenNewTransactionModal}>Nova transação</button>
+        <div className="logo">
+          <img src={logoImg} alt="My Finances" />
+          <h2>My Finances</h2>
+        </div>
+        <button onClick={onOpenNewTransactionModal}>New Transaction</button>
       </Content>
     </Container>
   );

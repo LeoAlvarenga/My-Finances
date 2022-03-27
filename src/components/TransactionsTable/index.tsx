@@ -1,6 +1,10 @@
+import { useTransactions } from "../../hooks/useTransactions";
+import { parseCurrency, parseDate } from "../../utils/utils";
 import { Container } from "./styles";
 
 export const TransactionsTable = () => {
+  const { transactions } = useTransactions();
+
   return (
     <Container>
       <table>
@@ -13,18 +17,17 @@ export const TransactionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimento de website</td>
-            <td className="deposit">$12.000</td>
-            <td>Desenvolvimento</td>
-            <td>20/02/2021</td>
-          </tr>
-          <tr>
-            <td>Aluguel</td>
-            <td className="withdraw">-$1.000</td>
-            <td>Desenvolvimento</td>
-            <td>20/02/2021</td>
-          </tr>
+          {transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>
+                {transaction.type === "withdraw" && "-"}{" "}
+                {parseCurrency(transaction.value)}
+              </td>
+              <td>{transaction.category}</td>
+              <td>{parseDate(new Date(transaction.createdAt))}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>
